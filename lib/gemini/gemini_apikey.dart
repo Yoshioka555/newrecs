@@ -1,0 +1,2 @@
+//GeminiのAPIkey
+const geminiApiKey = '';
