@@ -340,6 +340,7 @@ class _EventIndexPageState extends State<EventIndexPage> {
         ),
         drawer: const UserDrawer(),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.purple[200],
           onPressed: () async {
             //画面遷移
             await Navigator.push(

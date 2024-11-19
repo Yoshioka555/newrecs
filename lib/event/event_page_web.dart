@@ -20,13 +20,13 @@ class EventPageWeb extends StatelessWidget {
       appBar: AppBar(
         elevation: 0,
         centerTitle: false,
-        title: Row(
+        title: const Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               'Event Management',
             ),
-            const SizedBox(height: 30, child: DoorStatusAppbar()),
+            SizedBox(height: 30, child: DoorStatusAppbar()),
           ],
         ),
         actions: [
@@ -43,6 +43,7 @@ class EventPageWeb extends StatelessWidget {
       ),
       drawer: const UserDrawer(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.purple[200],
         onPressed: () async {
           //画面遷移
           await Navigator.push(

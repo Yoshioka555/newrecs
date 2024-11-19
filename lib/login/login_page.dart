@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_signin_button/button_list.dart';
-import 'package:flutter_signin_button/button_view.dart';
 
 import '../header_footer_drawer/footer.dart';
 import '../register/register_page.dart';
@@ -51,13 +49,13 @@ class LoginPage extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 30, right: 30),
                             child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                     height: 70,
                                     child: Image(
                                         image: AssetImage(
-                                            'assets/images/al_logo.png'))),
-                                SizedBox(height: 30),
-                                Text(
+                                            'assets/images/al_logo_cleaned.png'))),
+                                const SizedBox(height: 30),
+                                const Text(
                                   'ログイン',
                                   style: TextStyle(
                                       color: Colors.black,
@@ -73,66 +71,46 @@ class LoginPage extends StatelessWidget {
                                   ),
                                 ),
                                 */
-                                SizedBox(height: 10),
-                                ConstrainedBox(
-                                  //横長の最大値の設定
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 700),
-                                  child: SizedBox(
-                                    //横長がウィンドウサイズの８割になる設定
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    child: TextField(
-                                      controller: model.emailController,
-                                      cursorColor: Colors.red,
-                                      decoration: const InputDecoration(
-                                        labelText: 'Email',
-                                        //メールのアイコン
-                                        icon: Icon(Icons.mail),
-                                      ),
-                                      onChanged: (text) {
-                                        model.setEmail(text);
-                                      },
-                                    ),
+                                const SizedBox(height: 10),
+                                TextField(
+                                  controller: model.emailController,
+                                  cursorColor: Colors.red,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Email',
+                                    //メールのアイコン
+                                    icon: Icon(Icons.mail),
                                   ),
+                                  onChanged: (text) {
+                                    model.setEmail(text);
+                                  },
                                 ),
                                 const SizedBox(
                                   height: 16,
                                 ),
-                                ConstrainedBox(
-                                  //横長の最大値の設定
-                                  constraints:
-                                      const BoxConstraints(maxWidth: 700),
-                                  child: SizedBox(
-                                    //横長がウィンドウサイズの８割になる設定
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    child: TextFormField(
-                                      controller: model.passwordController,
-                                      obscureText: model.isObscure,
-                                      cursorColor: Colors.red,
-                                      // カーソル色
-                                      decoration: InputDecoration(
-                                        labelText: 'Password',
-                                        //鍵のアイコン
-                                        icon: const Icon(Icons.lock),
-                                        //目隠しのアイコン
-                                        suffixIcon: IconButton(
-                                          icon: Icon(model.isObscure
-                                              ? Icons.visibility_off
-                                              : Icons.visibility),
-                                          onPressed: () {
-                                            model.obscureChange();
-                                          },
-                                        ),
-                                      ),
-                                      onChanged: (text) {
-                                        model.setPassword(text);
+                                TextFormField(
+                                  controller: model.passwordController,
+                                  obscureText: model.isObscure,
+                                  cursorColor: Colors.red,
+                                  // カーソル色
+                                  decoration: InputDecoration(
+                                    labelText: 'Password',
+                                    //鍵のアイコン
+                                    icon: const Icon(Icons.lock),
+                                    //目隠しのアイコン
+                                    suffixIcon: IconButton(
+                                      icon: Icon(model.isObscure
+                                          ? Icons.visibility_off
+                                          : Icons.visibility),
+                                      onPressed: () {
+                                        model.obscureChange();
                                       },
                                     ),
                                   ),
+                                  onChanged: (text) {
+                                    model.setPassword(text);
+                                  },
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -153,12 +131,12 @@ class LoginPage extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 SizedBox(
                                   width: double.infinity,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      fixedSize: Size(200, double.infinity),
+                                      fixedSize: const Size(200, double.infinity),
                                       backgroundColor: Colors.black, //ボタンの背景色
                                         shape: RoundedRectangleBorder(
                                             borderRadius: BorderRadius.circular(5)),
@@ -200,7 +178,7 @@ class LoginPage extends StatelessWidget {
                                         model.endLoading();
                                       }
                                     },
-                                    child: Text(
+                                    child: const Text(
                                       'ログインする',
                                       style: TextStyle(
                                           color: Colors.white,
@@ -208,11 +186,11 @@ class LoginPage extends StatelessWidget {
                                     ),
                                   ),
                                 ),
-                                SizedBox(height: 5),
+                                const SizedBox(height: 5),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('アカウントが未登録ですか?'),
+                                    const Text('アカウントが未登録ですか?'),
                                     TextButton(
                                       onPressed: () async {
                                         //画面遷移

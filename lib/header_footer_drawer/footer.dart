@@ -43,11 +43,11 @@ class _FooterState extends State<Footer> {
   //アイコンや文字列のカラー
   final List<Color?> _footerItemColor = [
     Colors.purple[200],
-    Colors.pink.shade200,
-    Colors.orange,
-    Colors.blue.shade800,
-    Colors.teal,
-    Colors.lightGreen.shade700,
+    Colors.green[200],
+    Colors.orange[200],
+    Colors.blue[200],
+    Colors.teal[200],
+    Colors.green,
   ];
 
   final _routes = [

@@ -19,7 +19,13 @@ class AttendancePageWeb extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: false,
-        title: const DoorStatusAppbar(),
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Attendance Management'),
+            SizedBox(height: 70, width: 170, child: DoorStatusAppbar()),
+          ],
+        ),
         //Gemini AI Page への遷移
         //仮でここに置いています
         actions: [
@@ -39,6 +45,7 @@ class AttendancePageWeb extends StatelessWidget {
       ),
       drawer: const UserDrawer(),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.green[200],
         onPressed: () async {
           //画面遷移
           await Navigator.push(

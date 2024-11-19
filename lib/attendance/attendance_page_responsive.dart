@@ -18,7 +18,7 @@ class AttendancePageTop extends StatelessWidget {
         colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.green),
       ),
       child: const ResponsiveWidget(
-        //従来通りのUI
+        //モバイル用のUI
         mobileWidget: AttendanceHomePage(),
         //Web用のUI
         webWidget: AttendancePageWeb(),

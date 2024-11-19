@@ -54,11 +54,11 @@ class _AttendanceHomePageState extends State<AttendanceHomePage> {
           ],
           centerTitle: true,
           elevation: 0.0,
-          title: Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text('Attendance'),
-              const SizedBox(height: 50, width: 100, child: DoorStatusAppbar()),
+              SizedBox(height: 70, width: 170, child: DoorStatusAppbar()),
             ],
           ),
           bottom: const TabBar(
@@ -80,6 +80,7 @@ class _AttendanceHomePageState extends State<AttendanceHomePage> {
         ),
         drawer: const UserDrawer(),
         floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.green[200],
           onPressed: () async {
             //画面遷移
             await Navigator.push(

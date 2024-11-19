@@ -5,7 +5,6 @@ import 'package:labmaidfastapi/user/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../user/email_reset_page.dart';
 import 'package:provider/provider.dart';
-
 import '../login/login_page.dart';
 import '../user/edit_user_page.dart';
 import 'drawer_model.dart';
@@ -22,192 +21,189 @@ class UserDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider<DrawerModel>(
       create: (_) => DrawerModel()..fetchUserList(),
-      child: Drawer(
-        backgroundColor: Colors.yellow,
-        child: Consumer<DrawerModel>(builder: (context, model, child) {
-          return ListView(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/flutter_haikei.png'),
-                    fit: BoxFit.cover,
+      child: Theme(
+        data: ThemeData(
+          useMaterial3: true, // Material 3 を有効化
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.red),
+        ),
+        child: Drawer(
+          child: Consumer<DrawerModel>(builder: (context, model, child) {
+            return Stack(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Align(
+                    alignment: Alignment.bottomRight,
+                    child: SizedBox(
+                        height: 50,
+                        child: Image(
+                            image: AssetImage(
+                                'assets/images/al_logo_cleaned.png'))),
                   ),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    const SizedBox(
-                      height: 15,
-                    ),
-                    const Text(
-                      'Menu & MyAccount',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 25,
+                ListView(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 15,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 7,
-                    ),
-                    Text(
-                      'UserName：${model.myData?.name}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
+                      const Text(
+                        'Menu & MyAccount',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 25,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Group：${model.myData?.group}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
+                      const SizedBox(
+                        height: 7,
                       ),
-                    ),
-                    Text(
-                      'Grade：${model.myData?.grade}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
+                      Text(
+                        'UserName：${model.myData?.name}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                    Text(
-                      'Email：${model.myData?.email}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
+                      Text(
+                        'Group：${model.myData?.group}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
                       ),
-                    ),
-                    Text(
-                      '出席状況：${model.myData?.status}',
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 18,
+                      Text(
+                        'Grade：${model.myData?.grade}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
                       ),
+                      Text(
+                        'Email：${model.myData?.email}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      Text(
+                        '出席状況：${model.myData?.status}',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                      ),
+                      const SizedBox(height: 15,
+                      ),
+                    ],
+                  ),
+                  //サブタイトル的なもの
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      '設定',
                     ),
-                    const SizedBox(height: 15,
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.mail),
+                    title: const Text('Email 変更'),
+                    onTap: () async {
+                      //メールアドレスとパスワード変更ページに遷移
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) {
+                          return const EmailResetPage();
+                        }),
+                      );
+                    },
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.manage_accounts),
+                    title: const Text('アカウント情報変更'),
+                    onTap: () async {
+                      await Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) {
+                          return EditMyPage(myData: model.myData!);
+                        }),
+                      );
+                    },
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      '外部リンク',
                     ),
-                  ],
-                ),
-              ),
-              //罫線
-              const Divider(
-                height: 1,
-                thickness: 1,
-              ),
-              //サブタイトル的なもの
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  '設定',
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.mail),
-                title: const Text('Email 変更'),
-                onTap: () async {
-                  //メールアドレスとパスワード変更ページに遷移
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) {
-                      return const EmailResetPage();
-                    }),
-                  );
-                },
-              ),
-              ListTile(
-                leading: const Icon(Icons.manage_accounts),
-                title: const Text('アカウント情報変更'),
-                onTap: () async {
-                  await Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) {
-                      return EditMyPage(myData: model.myData!);
-                    }),
-                  );
-                },
-              ),
-              const Divider(
-                height: 1,
-                thickness: 1,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  '外部リンク',
-                ),
-              ),
-              //外部ページに飛ぶ時に新しいタブが生成されるようになっています
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('研究室ホームページ'),
-                onTap: () => _HomelaunchUrl(),
-              ),
-              ListTile(
-                leading: const Icon(Icons.poll),
-                title: const Text('Pole Manege'),
-                onTap: () => _PolelaunchUrl(),
-              ),
-
-              const Divider(
-                height: 1,
-                thickness: 1,
-              ),
-              const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Text(
-                  'その他',
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Logout from Labmaid'),
-                onTap: () async {
-                  try {
-                    showDialog(
-                        context: context,
-                        builder: (_) => CupertinoAlertDialog(
-                          title: const Text("ログアウトしますか？"),
-                          actions: [
-                            CupertinoDialogAction(
-                                isDestructiveAction: true,
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                                child: const Text('Cancel')),
-                            CupertinoDialogAction(
-                              child: const Text('OK'),
-                              onPressed: () {
-                                FirebaseAuth.instance.signOut();
-                                logout();
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                      const LoginPage()),
-                                      (route) => false,
-                                );
-                                const snackBar = SnackBar(
-                                  backgroundColor: Colors.green,
-                                  content: Text('ログアウトしました'),
-                                );
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(snackBar);
-                              },
-                            )
-                          ],
-                        ));
-                  } catch (e) {
-                    //失敗した場合
-                    final snackBar = SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text(e.toString()),
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }
-                },
-              ),
-            ],
-          );
-        }),
+                  ),
+                  //外部ページに飛ぶ時に新しいタブが生成されるようになっています
+                  ListTile(
+                    leading: const Icon(Icons.home),
+                    title: const Text('研究室ホームページ'),
+                    onTap: () => _HomelaunchUrl(),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.poll),
+                    title: const Text('Pole Manage'),
+                    onTap: () => _PolelaunchUrl(),
+                  ),
+                  const Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'その他',
+                    ),
+                  ),
+                  ListTile(
+                    leading: const Icon(Icons.logout),
+                    title: const Text('Logout from Labmaid'),
+                    onTap: () async {
+                      try {
+                        showDialog(
+                            context: context,
+                            builder: (_) => CupertinoAlertDialog(
+                              title: const Text("ログアウトしますか？"),
+                              actions: [
+                                CupertinoDialogAction(
+                                    isDestructiveAction: true,
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text('Cancel')),
+                                CupertinoDialogAction(
+                                  child: const Text('OK'),
+                                  onPressed: () {
+                                    FirebaseAuth.instance.signOut();
+                                    logout();
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          const LoginPage()),
+                                          (route) => false,
+                                    );
+                                    const snackBar = SnackBar(
+                                      backgroundColor: Colors.green,
+                                      content: Text('ログアウトしました'),
+                                    );
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(snackBar);
+                                  },
+                                )
+                              ],
+                            ));
+                      } catch (e) {
+                        //失敗した場合
+                        final snackBar = SnackBar(
+                          backgroundColor: Colors.red,
+                          content: Text(e.toString()),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      }
+                    },
+                  ),
+                ],
+              ),]
+            );
+          }),
+        ),
       ),
     );
   }
