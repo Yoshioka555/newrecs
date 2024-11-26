@@ -14,7 +14,9 @@ final Uri _poleManegeUrl = Uri.parse('https://p.al.kansai-u.ac.jp/');
 
 class UserDrawer extends StatelessWidget {
   // 定数コンストラクタ
-  const UserDrawer({Key? key,}) : super(key: key);
+  const UserDrawer({
+    Key? key,
+  }) : super(key: key);
 
   // build()
   @override
@@ -28,20 +30,19 @@ class UserDrawer extends StatelessWidget {
         ),
         child: Drawer(
           child: Consumer<DrawerModel>(builder: (context, model, child) {
-            return Stack(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(15.0),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: SizedBox(
-                        height: 50,
-                        child: Image(
-                            image: AssetImage(
-                                'assets/images/al_logo_cleaned.png'))),
-                  ),
+            return Stack(children: [
+              const Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Align(
+                  alignment: Alignment.bottomRight,
+                  child: SizedBox(
+                      height: 50,
+                      child: Image(
+                          image:
+                              AssetImage('assets/images/al_logo_cleaned.png'))),
                 ),
-                ListView(
+              ),
+              ListView(
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,7 +95,8 @@ class UserDrawer extends StatelessWidget {
                           fontSize: 18,
                         ),
                       ),
-                      const SizedBox(height: 15,
+                      const SizedBox(
+                        height: 15,
                       ),
                     ],
                   ),
@@ -117,16 +119,38 @@ class UserDrawer extends StatelessWidget {
                       );
                     },
                   ),
-                  ListTile(
-                    leading: const Icon(Icons.manage_accounts),
-                    title: const Text('アカウント情報変更'),
-                    onTap: () async {
-                      await Navigator.of(context).push(
-                        MaterialPageRoute(builder: (context) {
-                          return EditMyPage(myData: model.myData!);
-                        }),
-                      );
-                    },
+                  //Tooltip
+                  //対象のwidgetをTooltipでラップする
+                  //Webではマウスオーバーで表示される
+                  //iosでは長押しで表示される
+                  //WidgetSpanというのを使えばwidgetを入れ込める
+                  Tooltip(
+                    //角を丸く、色を赤にするdecoration
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    richMessage: WidgetSpan(
+                        child: Column(
+                      children: [
+                        Text(
+                          '欠席',
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Text('詳細：腹痛のため')
+                      ],
+                    )),
+                    child: ListTile(
+                      leading: const Icon(Icons.manage_accounts),
+                      title: const Text('アカウント情報変更'),
+                      onTap: () async {
+                        await Navigator.of(context).push(
+                          MaterialPageRoute(builder: (context) {
+                            return EditMyPage(myData: model.myData!);
+                          }),
+                        );
+                      },
+                    ),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(16.0),
@@ -159,36 +183,36 @@ class UserDrawer extends StatelessWidget {
                         showDialog(
                             context: context,
                             builder: (_) => CupertinoAlertDialog(
-                              title: const Text("ログアウトしますか？"),
-                              actions: [
-                                CupertinoDialogAction(
-                                    isDestructiveAction: true,
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: const Text('Cancel')),
-                                CupertinoDialogAction(
-                                  child: const Text('OK'),
-                                  onPressed: () {
-                                    FirebaseAuth.instance.signOut();
-                                    logout();
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                          const LoginPage()),
+                                  title: const Text("ログアウトしますか？"),
+                                  actions: [
+                                    CupertinoDialogAction(
+                                        isDestructiveAction: true,
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                        child: const Text('Cancel')),
+                                    CupertinoDialogAction(
+                                      child: const Text('OK'),
+                                      onPressed: () {
+                                        FirebaseAuth.instance.signOut();
+                                        logout();
+                                        Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const LoginPage()),
                                           (route) => false,
-                                    );
-                                    const snackBar = SnackBar(
-                                      backgroundColor: Colors.green,
-                                      content: Text('ログアウトしました'),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        .showSnackBar(snackBar);
-                                  },
-                                )
-                              ],
-                            ));
+                                        );
+                                        const snackBar = SnackBar(
+                                          backgroundColor: Colors.green,
+                                          content: Text('ログアウトしました'),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
+                                      },
+                                    )
+                                  ],
+                                ));
                       } catch (e) {
                         //失敗した場合
                         final snackBar = SnackBar(
@@ -200,8 +224,8 @@ class UserDrawer extends StatelessWidget {
                     },
                   ),
                 ],
-              ),]
-            );
+              ),
+            ]);
           }),
         ),
       ),
@@ -221,7 +245,4 @@ class UserDrawer extends StatelessWidget {
       throw Exception('Could not launch $_poleManegeUrl');
     }
   }
-
 }
-
-
