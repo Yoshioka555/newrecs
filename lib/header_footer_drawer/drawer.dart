@@ -132,6 +132,7 @@ class UserDrawer extends StatelessWidget {
                     ),
                     richMessage: WidgetSpan(
                         child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '欠席',
